@@ -37,8 +37,20 @@ module.exports = {
         }
       }
     },
-    createPost: (req, res) => {
+    createPost: async (req, res) => {
       //code here
+      const db = await req.app.get('db')
+      
+      const {title, img, content} = req.body
+      const date = new Date
+
+      if(req.session.user) {
+        const {id} = req.session.user
+        db.post.create_post([id, title, img, content, date])
+        .then(post => res.status(200).send(post)) //ended in this section, check for accuracy
+      } else {
+        res.status(403).send('Forbidden.')
+      }
     },
     readPost: (req, res) => {
       req.app.get('db').post.read_post(req.params.id)
