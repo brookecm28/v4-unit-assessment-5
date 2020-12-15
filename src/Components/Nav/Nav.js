@@ -4,10 +4,11 @@ import homeLogo from './../../assets/home_logo.png';
 import newLogo from './../../assets/new_logo.png';
 import logoutLogo from './../../assets/shut_down.png';
 import './Nav.css';
+import {Link, withRouter} from 'react-router-dom';
 
 class Nav extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.logout = this.logout.bind(this);
     this.getUser = this.getUser.bind(this);
@@ -24,9 +25,9 @@ class Nav extends Component {
   
   logout() {
     axios.post('/api/auth/logout')
-      .then(_ => 'replace this string with something else')
+      .then(_ => 'Logout successful. See you soon.')
   }
-  
+   
   render() {
       return this.props.location.pathname !== '/' &&
         <div className='nav'>
@@ -35,12 +36,18 @@ class Nav extends Component {
             <p>placeholder username</p>
           </div>
           <div className='nav-links'>
-            <img className='nav-img' src={homeLogo} alt='home' />
-            <img className='nav-img' src={newLogo} alt='new post' />
+            <Link to='/dash'>
+              <img className='nav-img' src={homeLogo} alt='home' />
+            </Link>
+            <Link to='/form'>
+              <img className='nav-img' src={newLogo} alt='new post' />
+            </Link>
           </div>
-          <img className='nav-img logout' src={logoutLogo} alt='logout' />
+          <Link to='/' onClick={() => this.state.logout()}>
+            <img className='nav-img logout' src={logoutLogo} alt='logout' />
+          </Link>
         </div>
   }
 }
 
-export default Nav;
+export default withRouter(Nav);

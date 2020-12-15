@@ -4,8 +4,8 @@ import logo from './../../assets/helo_logo.png';
 import './Auth.css';
 
 class Auth extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       username: '',
       password: '',
@@ -25,6 +25,7 @@ class Auth extends Component {
     axios.post('/api/auth/login', this.state)
       .then(res => {
         //code here
+        this.props.history.push('/dash')
       })
       .catch(err => {
         console.log(err)
@@ -36,6 +37,7 @@ class Auth extends Component {
     axios.post('/api/auth/register', this.state)
       .then(res => {
         //code here
+        this.props.history.push('/dash')
       })
       .catch(err => {
         console.log(err)

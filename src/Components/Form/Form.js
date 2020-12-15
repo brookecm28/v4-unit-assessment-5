@@ -4,8 +4,8 @@ import noImage from './../../assets/no_image.jpg';
 import './Form.css';
 
 class Form extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       title: '',
       img: '',
@@ -16,7 +16,10 @@ class Form extends Component {
 
   submit() {
     axios.post('/api/post', this.state)
-      .then(() => 'replace this string with something useful')
+      .then(() => {
+        console.log('post successful')
+        this.props.history.push('/dash')
+      })
       .catch((err) => console.log(err))
   }
   
