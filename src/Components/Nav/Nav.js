@@ -12,6 +12,15 @@ class Nav extends Component {
   constructor() {
     super();
 
+    this.state = {
+      author: '',
+      author_pic: '',
+      title: '',
+      img: '',
+      content: '',
+      loading: true
+    }
+
     this.logout = this.logout.bind(this);
     this.getUser = this.getUser.bind(this);
   }
@@ -22,22 +31,27 @@ class Nav extends Component {
 
   getUser() {
     axios.get('/api/auth/me')
-    .then(res => 'replace this string with something useful')
+    .then(res => {
+      console.log(res.data)
+      this.setState ({...res.data})
+      })
   }
   
   logout() {
     axios.post('/api/auth/logout')
-      .then(_ => 'Logout successful. See you soon.')
+      .then(_ => {
+        console.log('Logout successful. See you soon.')
+      })
   }
    
   render() {
     console.log(this.props)
-    console.log(this.props.username)
+    console.log(this.state.profile_pic)
       return this.props.location.pathname !== '/' &&
         <div className='nav'>
           <div className='nav-profile-container'>
-            <div className='nav-profile-pic' style={{backgroundImage: 'url(`${this.state.profile_pic}`)'}}></div>
-            <p>{this.props.username}x</p>
+            <div className='nav-profile-pic' style={{backgroundImage: `url(${this.state.profile_pic})`}}></div>
+            <p>{this.state.username}</p>
           </div>
           <div className='nav-links'>
             <Link to='/dash'>
@@ -47,7 +61,7 @@ class Nav extends Component {
               <img className='nav-img' src={newLogo} alt='new post' />
             </Link>
           </div>
-          <Link to='/' onClick={() => this.state.logout()}>
+          <Link to='/' onClick={() => {this.logout()}}>
             <img className='nav-img logout' src={logoutLogo} alt='logout' />
           </Link>
         </div>
