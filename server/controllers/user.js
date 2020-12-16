@@ -21,22 +21,29 @@ module.exports = ({
     login: async (req, res) => {
         const db = req.app.get('db')
         const {username, password} = req.body
-        const [existingUser] = await db.user.find_user_by_username([username])
+        const existingUser = await db.user.find_user_by_username([username])
+        const user = existingUser[0]
 
-        if(!existingUser) {
-            res.status(404).send('No account found with that username.')
+        if(!user) {
+            return res.status(404).send('No account found with that username.')
         }
 
-        const isAuthenticated = bcrypt.compareSync(password, existingUser.password)
+        const isAuthenticated = bcrypt.compareSync(password, user.password)
 
         if(!isAuthenticated) {
             return res.status*(403).send('Incorrect password.')
         }
 
-        delete existingUser.password
+        delete user.password
         
-        req.session.user = existingUser
-        res.status(200).send(existingUser)
+        req.session.user = {
+            username: user.username,
+            password: user.password,
+            profile_pic: user.profile_pic,
+            id: user.id
+        }
+        console.log(user)
+        res.status(200).send(user)
     },
     logout: (req, res) => {
         const db = req.app.get('db')

@@ -18,7 +18,9 @@ class Nav extends Component {
       title: '',
       img: '',
       content: '',
-      loading: true
+      loading: true,
+      // username: '',
+      // profile_pic: ''
     }
 
     this.logout = this.logout.bind(this);
@@ -41,6 +43,16 @@ class Nav extends Component {
     axios.post('/api/auth/logout')
       .then(_ => {
         console.log('Logout successful. See you soon.')
+        this.setState({
+          author: '',
+          author_pic: '',
+          title: '',
+          img: '',
+          content: '',
+          loading: true,
+          username: '',
+          profile_pic: ''
+        })
       })
   }
    

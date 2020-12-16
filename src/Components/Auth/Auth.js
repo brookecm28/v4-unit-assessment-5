@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import logo from './../../assets/helo_logo.png';
 import './Auth.css';
+import {connect} from 'react-redux'
+import {updateUser} from '../../ducks/reducer'
 
 class Auth extends Component {
   constructor() {
@@ -26,6 +28,10 @@ class Auth extends Component {
       .then(res => {
         //code here
         this.props.history.push('/dash')
+        this.props.updateUser({
+          username: res.data.username,
+          profile_pic: res.data.profile_pic
+        })
       })
       .catch(err => {
         console.log(err)
@@ -38,6 +44,10 @@ class Auth extends Component {
       .then(res => {
         //code here
         this.props.history.push('/dash')
+        this.props.register({
+          username: res.data.username,
+          profile_pic: res.data.profile_pic
+        })
       })
       .catch(err => {
         console.log(err)
@@ -78,4 +88,4 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+export default connect(null, {updateUser}) (Auth);
