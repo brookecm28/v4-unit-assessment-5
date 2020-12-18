@@ -19,25 +19,25 @@ class Nav extends Component {
       img: '',
       content: '',
       loading: true,
-      // username: '',
-      // profile_pic: ''
+      username: '',
+      profile_pic: ''
     }
 
     this.logout = this.logout.bind(this);
-    this.getUser = this.getUser.bind(this);
+    // this.getUser = this.getUser.bind(this);
   }
 
   componentDidMount() {
-    this.getUser()
-  }
-
-  getUser() {
     axios.get('/api/auth/me')
     .then(res => {
       console.log(res.data)
-      this.setState ({...res.data})
+      this.setState ({loading: false, ...res.data})
       })
   }
+
+  // getUser() {
+  //   this.getUser()
+  // }
   
   logout() {
     axios.post('/api/auth/logout')
@@ -57,8 +57,6 @@ class Nav extends Component {
   }
    
   render() {
-    console.log(this.props)
-    console.log(this.state.profile_pic)
       return this.props.location.pathname !== '/' &&
         <div className='nav'>
           <div className='nav-profile-container'>

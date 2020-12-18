@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import noImage from './../../assets/no_image.jpg';
 import './Form.css';
+import Nav from '../Nav/Nav'
 
 class Form extends Component {
   constructor() {
@@ -28,6 +29,7 @@ class Form extends Component {
 
     return (
       <div className='form content-box'>
+        <Nav />
         <h2 className='title'>New Post</h2>
         <div className='form-main'>
           <div className='form-input-box'>

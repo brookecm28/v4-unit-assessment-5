@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import noImage from './../../assets/no_image.jpg';
 import './Post.css';
+import routes from '../../routes'
+import Nav from '../Nav/Nav'
+import {connect} from 'react-redux'
 
 class Post extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       author: '',
@@ -19,21 +22,27 @@ class Post extends Component {
 
   componentDidMount() {
     console.log(this.props.location.pathname)
-    axios.get(`${this.props.location.pathname}`)
+    axios.get(`api/post/${this.props.post_id}`)
       .then(res => {
         
         this.setState({ ...res.data, loading: false })
+        console.log('mounted post')
+        console.log(this.props.location.pathname)
       })
   }
 
   render() {
     let imgSrc = this.state.img ? this.state.img : noImage;
-console.log(this.props.location.pathname)
+
     return (
+      
       <div className='post content-box'>
+        
+        {routes}
         {!this.state.loading && this.state.title
           ?
           <div>
+            <Nav />
             <div className='post-header'>
               <h2 className='title'>{this.state.title}</h2>
               <div className='author-box'>
@@ -64,4 +73,8 @@ console.log(this.props.location.pathname)
   }
 }
 
-export default Post;
+function mapStateToProps(state) {
+  return state
+}
+
+export default connect(mapStateToProps)(Post);

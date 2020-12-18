@@ -3,6 +3,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import './Dash.css';
 import {Link} from 'react-router-dom'
+import Nav from '../Nav/Nav'
+import routes from '../../routes'
 
 class Dash extends Component {
   constructor() {
@@ -67,6 +69,7 @@ class Dash extends Component {
     let mappedPosts = posts.map(post => {
       
       return <div className='content-box dash-post-box' key={post.post_id}>
+        
           <Link to={`/api/post/${post.post_id}`} post_id={post.post_id}>
             <h3>{post.title}</h3>
           </Link>
@@ -85,6 +88,7 @@ class Dash extends Component {
     
     return (
       <div className='dash'>
+        <Nav />
         <div className='content-box dash-filter'>
           <div className='dash-search-box'>
             <input value={search} onChange={e => this.setState({ search: e.target.value })} className='dash-search-bar' placeholder='Search by Title' />
