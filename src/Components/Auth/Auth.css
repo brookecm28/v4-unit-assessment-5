@@ -23,6 +23,7 @@
     justify-content: space-around;
     padding: 20px;
     position: relative;
+    min-width: 275px;
   }
 
   .auth-title {
@@ -71,3 +72,18 @@
     justify-content: space-around;
     width: 55%;
   }
+
+@media(max-width: 400px) {
+  .auth-container {
+    box-shadow: none;
+    background-image: none;
+  }
+  #login-btn {
+    margin-right: 35px;
+    margin-top: 20px;
+  }
+  #reg-btn {
+    margin-left: 35px;
+    margin-top: 20px;
+  }
+}
