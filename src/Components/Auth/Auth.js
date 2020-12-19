@@ -43,11 +43,12 @@ class Auth extends Component {
     axios.post('/api/auth/register', this.state)
       .then(res => {
         //code here
-        this.props.history.push('/dash')
-        this.props.updateUser({
+          this.props.updateUser({
           username: res.data.username,
           profile_pic: res.data.profile_pic
         })
+        this.props.history.push('/dash')
+      
       })
       .catch(err => {
         console.log(err)

@@ -4,7 +4,7 @@ import noImage from './../../assets/no_image.jpg';
 import './Post.css';
 import routes from '../../routes'
 import Nav from '../Nav/Nav'
-import {connect} from 'react-redux'
+
 
 class Post extends Component {
   constructor() {
@@ -22,12 +22,11 @@ class Post extends Component {
 
   componentDidMount() {
     console.log(this.props.location.pathname)
-    axios.get(`api/post/${this.props.post_id}`)
+    axios.get(`${this.props.match.params}`)
       .then(res => {
-        
+        console.log(this.props.location.pathname)
         this.setState({ ...res.data, loading: false })
         console.log('mounted post')
-        console.log(this.props.location.pathname)
       })
   }
 
@@ -73,8 +72,4 @@ class Post extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state
-}
-
-export default connect(mapStateToProps)(Post);
+export default Post;
